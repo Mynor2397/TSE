@@ -1,0 +1,255 @@
+{{define "index"}}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TSE 2019</title>
+    <link rel="stylesheet" href="./css/bootstrap.min (3).css">
+    <link rel="stylesheet" href="./css/min.css">
+    <link rel="stylesheet" href="./fonts/css/anychart-font.css">
+    <link rel="stylesheet" href="./css/styles.css">
+    <script src="./stadistic/Chart.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <div>
+            <div class="menu_bar">
+                <a href="#" class="bt-menu"> <span class="ac ac-bars"></span>Menu</a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href=""><span class="ac ac-bookmark"></span>Inicio</a></li>
+                    <li><a href=""><span class="ac ac-bookmark"></span>Inicio</a></li>
+                    <li><a href=""><span class="ac ac-bookmark"></span>Inicio</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <!-------------------------------------------------------------------------------------------->
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="content target" align="center">
+                <h3>PRESIDENTE Y VICEPRESIDENTE</h3>
+                <h3>NIVEL NACIONAL</h3>
+                <div class="row justify-content-center">
+                    <h5 id="tiempo"></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="container">
+            <div class="card-body ingresar">
+                <div class="row align-items-start">
+                    <div class="col-xs-12 col-sm-12 col-lg-4 col-md-4 ">
+                        <div class="form-group ">
+                            <label>Seleccione un tipo de elección: </label>
+                            <select id="TIPOELECCION" class="custom-select ingresar form-control ">
+                                <option value="1">PRESIDENTE Y VICEPRESIDENTE</option>
+                                <option value="2">CORPORACIÓN MUNICIPAL</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 col-lg-4 col-md-4">
+                        <div class="form-group  ">
+                            <label for="">Seleccione un departamento:</label>
+                            <select id="DEP" class="custom-select ingresar form-control">
+                                <!-- Aqui se cargan los deptos-->
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 col-lg-4 col-md-4">
+                        <div class="form-group ">
+                            <label for=""> Seleccione un municipio:</label>
+                            <select id="MUN" class="custom-select ingresar form-control ">
+
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 col-lg-4 col-md-3">
+                        <button class="btn btn-outline-primary btn-block text-center" onclick="Consultar();">
+                            Aceptar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--aqui van las graficas-------------------------------------------------------------->
+    <div class="row">
+        <div class="container my-4">
+            <div class="row align-items-center">
+                <div class="col-xs-12 col-sm-12 col-lg-6 col-md-6 p-4">
+                    <div class="card border-primary mb-3 " style="max-width: 40rem; height: 375px;">
+                        <div class="card-header text-center font_blue">NIVEL NACIONAL</div>
+                        <div class="card-body">
+                            <h4 class="card-title">Primary card title</h4>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
+                                of
+                                the
+                                card's content.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-lg-6 col-md-6 p-4">
+                    <div class="card border-primary mb-3 " style="max-width: 40rem; height: 350px;">
+                        <div class="card-header text-center font_blue">VOTOS VÁLIDOS POR ORGANIZACIÓN POLÍTICA</div>
+                        <div class="card-body" style="max-width: 40rem; height: 250px">
+                            <canvas style="max-width: 40rem; height: 250px;" id="myChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row align-items-center">
+                <div class="col-xs-12 col-sm-12 col-lg-6 col-md-6 p-4">
+                    <div class="card border-primary mb-3 " style="max-width: 40rem; height: 500px;">
+                        <div class="card-header text-center font_blue">DETALLE DE VOTOS</div>
+                        <div class="card-body">
+                            <!--Contiene la inforacion sobre el detalle de porcentaje sobre Partido-->
+                            <div class="container">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Organizaciones Políticas</th>
+                                            <th scope="col">Votos</th>
+                                            <th scope="col">%</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">VAMOS</th>
+                                            <td id="VAMOS"></td>
+                                            <td id="VAMOSP"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">UNE</th>
+                                            <td id="UNE"></td>
+                                            <td id="UNEP"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="container">
+                                <table class="table table-sm table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col"></th>
+                                            <th scope="col">Votos</th>
+                                            <th scope="col">%</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row" height="20%">Total votos válidos:</th>
+                                            <td id="VOTOSVALIDOS"></td>
+                                            <td id="PVOTOSVALIDOS"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Votos nulos:</th>
+                                            <td id="NULOS"></td>
+                                            <td id="PNULOS"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Votos en blanco:</th>
+                                            <td id="BLANCOS"></td>
+                                            <td id="PBLANCOS"></td>
+
+                                        </tr>
+                                        <tr">
+                                            <th scope="row" style="width: 65%">Total votos válidamente emitidos: </th>
+                                            <td id="TOTALVOTOS"></td>
+                                            <td id="PTOTALVOTOS"></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Votos inválidos:</th>
+                                                <td id="INVALIDOS"></td>
+                                                <td id="PINVALIDOS"></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Impugnaciones:</th>
+                                                <td id="CNTIMPUGNA"></td>
+                                                <td id="PCNTIMPUGNA"></td>
+                                            </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-lg-6 col-md-6 p-4">
+                    <div class="card border-primary mb-3 " style="max-width: 40rem; height: 500px;">
+                        <div class="card-header text-center font_blue">MESAS PROCESADAS</div>
+                        <div class="card-body">
+                            <h4 class="card-text text-center">1997</h4>
+
+                            <div class="container">
+                                <div class="card border-primary mb-3 " style="max-width: 35rem; height: 200px;">
+                                    <!--Aqui va la gráfica-->
+                                    <canvas style="max-width: 40rem; height: 250px;" id="oilChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="container">
+                                <table class="table table-sm table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row" style="width: 65%">Total mesas:</th>
+                                            <td id="CNTMESAS"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Mesas procesadas:</th>
+                                            <td id="MESASPRO"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Mesas no procesadas:</th>
+                                            <td id="MESASFALT"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="container">
+                                <table class="table table-sm table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row" style="width: 65%">Votantes inscritos::</th>
+                                            <td id="CNTVOTANTES"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Abstencionismo:</th>
+                                            <td id="ABSTENCIONISMO"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!---------------------------------------------------------------------------------------->
+
+    <script src="./js/jquery-3.4.1.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/header.js"></script>
+    <script src="./js/reloader.js"></script>
+    <script src="./js/selectores.js"></script>
+    <script src="./js/request.js"></script>
+</body>
+
+</html>
+{{end}}
